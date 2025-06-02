@@ -8,10 +8,10 @@ export function useCRUD<T>(endpoint: string) {
 
   const API_URL = `http://localhost:3000`;
 
-  const getAll = async () => {
+  const getAll = async (rota:string) => {
     setLoading(true);
     try {
-      const response = await fetch(API_URL);
+      const response = await fetch(`${API_URL}${rota}`);
       const result = await response.json();
       setData(result);
     } catch (err) {
@@ -21,10 +21,10 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
-  const create = async (item: Partial<T>) => {
+  const create = async (item: Partial<T>, rota: string) => {
     setLoading(true);
     try {
-      const response = await fetch(API_URL, {
+      const response = await fetch(`${API_URL}${rota}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(item),
@@ -44,7 +44,7 @@ export function useCRUD<T>(endpoint: string) {
       await fetch(`${API_URL}/${id}`, {
         method: "DELETE",
       });
-      await getAll();
+      await getAll('/rotausuario');
     } catch (err) {
       setError(err);
     } finally {

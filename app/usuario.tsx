@@ -19,7 +19,7 @@ interface usuario {
   //receita: Receita[]
 }
 
-const usuarios = () => {
+const Usuarios = () => {
   // Usa o hook useCRUD passando a entidade "users" e o tipo Cliente.
   // A URL base do hook será algo como: https://suaapi.com/users
 
@@ -33,22 +33,22 @@ const usuarios = () => {
   const [telefone, setTelefone] = useState("");
   const [senha, setSenha] = useState("");
 
-  // useEffect para buscar todos os clientes assim que o componente for montado
+  //useEffect para buscar todos os clientes assim que o componente for montado
   useEffect(() => {
-    getAll();
-  }, [data]);
+    getAll('/rotausuario');
+  }, []);//antes tinha data
 
   //função para cadastrar um novo usuario
   const handleSubmit = async () => {
     const novoUsuario = { nome, sobrenome, email, telefone, senha };
     try {
-      await create(novoUsuario); //Chama o método POST do Hook
-      setNome(nome);
-      setSobrenome(sobrenome);
-      setEmail(email);
-      setTelefone(telefone);
-      setSenha(senha);
-      await getAll(); //Chama a função que faz uma requisição GET para a api
+      await create(novoUsuario,'/rotausuario'); //Chama o método POST do Hook
+      setNome("");
+      setSobrenome("");
+      setEmail("");
+      setTelefone("");
+      setSenha("");
+      await getAll('/rotausuario'); //Chama a função que faz uma requisição GET para a api
     } catch (error) {
       console.log("Erro no cadastro de usuario" + error);
     }
@@ -148,4 +148,4 @@ const usuarios = () => {
   );
 };
 
-export default usuarios;
+export default Usuarios;

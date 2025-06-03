@@ -11,16 +11,20 @@ export default function ProfileScreen() {
     router.replace("/");
   }
 
-  function handleClientes() {
-    router.push("/usuario");
+  // function handleClientes() {
+  //   router.push("/usuario");
+  // }
+
+  function handleReceitas(){
+    router.push("/receita")
   }
 
   return (
     <View style={styles.container}>
       <Text style={styles.text}>Bem-vindos cozinheiros!</Text>
 
-      <Button title="Usuarios" onPress={handleClientes} />
-
+      <Button title="Receitas" onPress={handleReceitas} />
+      <br />
       <Button title="Sair" onPress={handleLogout} />
     </View>
   );

@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { Button, StyleSheet, Text, TextInput, View } from "react-native";
 import { z } from "zod";
 import { useAuth } from "../src/contexts/authContext";
+import usuario from "./usuario";
 // import Usuarios from "../app/usuario";
-import usuario from "../app/usuario";
+//import usuario from "../app/usuario";
 
 
 const loginSchema = z.object({
@@ -36,7 +37,6 @@ const handleLogin = async () => {
   }
 
   const usuario = await getByEmail(email);
-  console.log(usuario);
   
   if (usuario && usuario.senha === senha) {
     login(email);
@@ -45,30 +45,6 @@ const handleLogin = async () => {
     setError("Email ou senha incorretos.");
   }
 };
-
-
-  // const handleLogin = async () => {
-  //   const result = loginSchema.safeParse({ email, senha });
-
-  //   if (!result.success) {
-  //     setError(result.error.errors[0].message);
-  //     return;
-  //   }
-
-  //   try {
-  //     const usuario = await getByEmail(email);
-  //     console.log(usuario)
-  //     if (usuario && usuario.senha === senha) {
-  //       login(email);
-  //       router.push("/profile");
-  //     } else {
-  //       setError("Email ou senha incorretos.");
-  //     }
-  //   } catch (error) {
-  //     setError("Erro ao fazer login.");
-  //     console.error(error);
-  //   }
-  // };
 
   return (
     <View style={styles.container}>

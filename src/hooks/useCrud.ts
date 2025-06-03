@@ -8,10 +8,10 @@ export function useCRUD<T>(endpoint: string) {
 
   const API_URL = `http://localhost:3000`;
 
-  const getAll = async (rota:string) => {
+  const getAll = async () => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}${rota}`);
+      const response = await fetch(`${API_URL}/${endpoint}`);
       const result = await response.json();
       setData(result);
     } catch (err) {
@@ -21,10 +21,30 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
-  const create = async (item: Partial<T>, rota: string) => {
+  const getByEmail = async (email: string): Promise<T | null> => {
+  setLoading(true); 
+  try {
+    const response = await fetch(`${API_URL}/${endpoint}?email=${email}`);
+    const result = await response.json();
+
+    if (Array.isArray(result) && result.length > 0) {
+      return result[0]; // retorna o primeiro usuário com o email
+    } else {
+      return null; // nenhum usuário encontrado
+    }
+  } catch (err) {
+    setError(err); 
+    return null;
+  } finally {
+    setLoading(false);
+  }
+};
+
+
+  const create = async (item: Partial<T>) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}${rota}`, {
+      const response = await fetch(`${API_URL}${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(item),
@@ -41,10 +61,10 @@ export function useCRUD<T>(endpoint: string) {
   const remove = async (id: string) => {
     setLoading(true);
     try {
-      await fetch(`${API_URL}/${id}`, {
+      await fetch(`${API_URL}${endpoint}${id}`, {
         method: "DELETE",
       });
-      await getAll('/rotausuario');
+      await getAll();
     } catch (err) {
       setError(err);
     } finally {
@@ -52,5 +72,5 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
-  return { data, loading, error, getAll, create, remove };
+  return { data, loading, error, getAll, create, remove, getByEmail };
 }

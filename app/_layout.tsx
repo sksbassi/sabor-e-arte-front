@@ -4,7 +4,11 @@ import { AuthProvider } from "../src/contexts/authContext";
 export default function RootLayout() {
   return (
     <AuthProvider>
-      <Stack />
+      <Stack
+        screenOptions={{
+          headerTitle: "Login", 
+        }}
+      />
     </AuthProvider>
   );
 }

@@ -17,7 +17,7 @@ export default function ProfileScreen() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.text}>Bem-vindo, {user?.email}</Text>
+      <Text style={styles.text}>Bem-vindos cozinheiros!</Text>
 
       <Button title="Usuarios" onPress={handleClientes} />
 

@@ -26,6 +26,7 @@ export function useCRUD<T>(endpoint: string) {
     try {
       const response = await fetch(`${API_URL}/${endpoint}/auth`, {
         method: "POST",
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
         }),

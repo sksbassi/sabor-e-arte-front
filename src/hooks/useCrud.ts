@@ -44,7 +44,7 @@ export function useCRUD<T>(endpoint: string) {
   const create = async (item: Partial<T>) => {
     setLoading(true);
     try {
-      const response = await fetch(`${API_URL}${endpoint}`, {
+      const response = await fetch(`${API_URL}/${endpoint}`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(item),

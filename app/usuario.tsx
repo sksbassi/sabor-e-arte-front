@@ -50,7 +50,7 @@ const usuario = () => {
       setSenha("");
       await getAll(); //Chama a função que faz uma requisição GET para a api
     } catch (error) {
-      console.log("Erro no cadastro de usuario" + error);
+      console.log("Erro no cadastro o usuario" + error);
     }
   };
 
@@ -112,38 +112,6 @@ const usuario = () => {
 
       {/* Botão para cadastrar */}
       <Button title={"Cadastrar"} onPress={handleSubmit} disabled={loading} />
-
-      <Text style={{ marginTop: 20, fontWeight: "bold" }}>
-        Lista de Clientes:
-      </Text>
-
-      {/* Exibe um indicador de carregamento, mensagem de erro ou a lista */}
-      {loading ? (
-        <ActivityIndicator size="large" color="#196e52" />
-      ) : error ? (
-        <Text style={{ color: "red" }}>Erro ao carregar clientes</Text>
-      ) : (
-        <FlatList
-          data={usuariodata} // Garante que seja um array
-          renderItem={({ item }) => (
-            <View
-              style={{
-                flexDirection: "row",
-                justifyContent: "space-between",
-                marginBottom: 10,
-              }}
-            >
-              <Text>
-                {item.nome} - {item.email}
-              </Text>
-              <Button title="Excluir" onPress={() => handleDelete(item.id!)} />
-            </View>
-          )}
-          keyExtractor={(item) =>
-            item.id?.toString() || Math.random().toString()
-          }
-        />
-      )}
     </View>
   );
 };

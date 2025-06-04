@@ -16,8 +16,11 @@ export default function ProfileScreen() {
   // }
 
   function handleReceitas(){
-    router.push("/receita")
+    router.push("/receita");
   }
+
+    
+
 
   return (
     <View style={styles.container}>

@@ -26,25 +26,27 @@ export default function Login() {
 
   useEffect(() => {
     getAll(); // pega todos os usuários
-  }, []); 
+  }, []);
 
-const handleLogin = async () => {
-  const result = loginSchema.safeParse({ email, senha });
+  const handleLogin = async () => {
+    const result = loginSchema.safeParse({ email, senha });
 
-  if (!result.success) {
-    setError(result.error.errors[0].message);
-    return;
-  }
+    if (!result.success) {
+      setError(result.error.errors[0].message);
+      return;
+    }
 
-  const usuario = await getByEmail(email);
-  
-  if (usuario && usuario.senha === senha) {
-    login(email);
-    router.push("/profile");
-  } else {
-    setError("Email ou senha incorretos.");
-  }
-};
+    const usuario = await getByEmail(email);
+    console.log(usuario);
+    console.log(senha);
+
+    if (usuario && usuario.senha === senha) {
+      login(usuario.id);
+      router.push("/profile");
+    } else {
+      setError("Email ou senha incorretos.");
+    }
+  };
 
   return (
     <View style={styles.container}>

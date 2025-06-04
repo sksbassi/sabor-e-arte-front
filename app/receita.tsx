@@ -1,3 +1,4 @@
+import { useAuth } from "@/src/contexts/authContext";
 import { useCRUD } from "@/src/hooks/useCrud";
 import { useEffect, useState } from "react";
 import { ActivityIndicator, Button, FlatList, Text, TextInput, View } from "react-native";
@@ -20,6 +21,7 @@ interface receita {
 const receita = () => {
     const { data, loading, error, create, getAll, remove } =
         useCRUD<receita>("receita");
+        const {user} = useAuth();
 
     // Estados para armazenar os dados do formulário
     const [nome, setNome] = useState("");
@@ -27,7 +29,6 @@ const receita = () => {
     const [modoPreparo, setModoPreparo] = useState("");
     const [tempoPreparo, setTempoPreparo] = useState(0);
     const [classificacao, setClassificacao] = useState("");
-    const [usuarioId, setUsuarioId] = useState("");
 
     //useEffect para buscar todos os clientes assim que o componente for montado
     useEffect(() => {
@@ -36,7 +37,7 @@ const receita = () => {
 
     //função para cadastrar um novo usuario
     const handleSubmit = async () => {
-        const novaReceita = { nome, ingredientes, modoPreparo, tempoPreparo, classificacao, usuarioId };
+        const novaReceita = { nome, ingredientes, modoPreparo, tempoPreparo, classificacao, usuarioId:user?.id };
 
         try {
             await create(novaReceita); //Chama o método POST do Hook
@@ -45,7 +46,6 @@ const receita = () => {
             setModoPreparo("");
             setTempoPreparo(0);
             setClassificacao("");
-            setUsuarioId("");
             await getAll(); //Chama a função que faz uma requisição GET para a api
         } catch (error) {
             console.log("Erro no cadastro de usuario" + error);

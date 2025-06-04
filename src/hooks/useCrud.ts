@@ -22,24 +22,24 @@ export function useCRUD<T>(endpoint: string) {
   };
 
   const getByEmail = async (email: string): Promise<T | null> => {
-  setLoading(true); 
-  try {
-    const response = await fetch(`${API_URL}/${endpoint}?email=${email}`);
-    const result = await response.json();
-
-    if (Array.isArray(result) && result.length > 0) {
-      return result[0]; // retorna o primeiro usuário com o email
-    } else {
-      return null; // nenhum usuário encontrado
+    setLoading(true);
+    try {
+      const response = await fetch(`${API_URL}/${endpoint}/auth`, {
+        method: "POST",
+        body: JSON.stringify({
+          email,
+        }),
+      });
+      const result = await response.json();
+      console.log(result);
+      return result;
+    } catch (err) {
+      setError(err);
+      return null;
+    } finally {
+      setLoading(false);
     }
-  } catch (err) {
-    setError(err); 
-    return null;
-  } finally {
-    setLoading(false);
-  }
-};
-
+  };
 
   const create = async (item: Partial<T>) => {
     setLoading(true);

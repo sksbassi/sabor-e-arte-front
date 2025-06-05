@@ -1,4 +1,5 @@
 // // Exemplo básico do useCRUD.ts
+import receita from "@/app/receita";
 import { useState } from "react";
 
 export function useCRUD<T>(endpoint: string) {
@@ -14,6 +15,7 @@ export function useCRUD<T>(endpoint: string) {
       const response = await fetch(`${API_URL}/${endpoint}`);
       const result = await response.json();
       setData(result);
+      return result;
     } catch (err) {
       setError(err);
     } finally {
@@ -59,10 +61,28 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
+  const update = async (id: string, receita: Partial<T>) => {
+    setLoading(true);
+    try {
+      await fetch(`${API_URL}/${endpoint}/${id}`, {
+        method: "PATCH",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(receita),
+      });
+      await getAll();
+    } catch (error) {
+      setLoading(true);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const remove = async (id: string) => {
     setLoading(true);
     try {
-      await fetch(`${API_URL}${endpoint}${id}`, {
+      await fetch(`${API_URL}/${endpoint}/${id}`, {
         method: "DELETE",
       });
       await getAll();
@@ -73,5 +93,5 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
-  return { data, loading, error, getAll, create, remove, getByEmail };
+  return { data, loading, error, getAll, create, remove, getByEmail, update};
 }

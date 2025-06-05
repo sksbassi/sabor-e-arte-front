@@ -1,7 +1,9 @@
 import { useAuth } from "@/src/contexts/authContext";
 import { useCRUD } from "@/src/hooks/useCrud";
+import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { ActivityIndicator, Button, FlatList, Text, TextInput, View } from "react-native";
+import { Button, Text, TextInput, View } from "react-native";
+
 
 interface receita {
     id: string;
@@ -19,9 +21,10 @@ interface receita {
 }
 
 const receita = () => {
-    const { data, loading, error, create, getAll, remove } =
+    const { data, loading, error, create, getAll, remove, update } =
         useCRUD<receita>("receita");
-        const {user} = useAuth();
+    const { user } = useAuth();
+    const { idreceitaexistente } = useLocalSearchParams();
 
     // Estados para armazenar os dados do formulário
     const [nome, setNome] = useState("");
@@ -31,13 +34,31 @@ const receita = () => {
     const [classificacao, setClassificacao] = useState("");
 
     //useEffect para buscar todos os clientes assim que o componente for montado
+    // useEffect(() => {
+    //     getAll();
+    // }, []);//antes tinha data
+
     useEffect(() => {
-        getAll();
-    }, []);//antes tinha data
+        if (idreceitaexistente && typeof idreceitaexistente === "string") {
+            const carregarReceita = async () => {
+                const resultado = await getAll() as receita[]; // ou criar um getById se preferir
+                const receitaExistente = resultado.find(r => r.id === idreceitaexistente);
+                if (receitaExistente) {
+                    setNome(receitaExistente.nome);
+                    setIngredientes(receitaExistente.ingredientes);
+                    setModoPreparo(receitaExistente.modoPreparo);
+                    setTempoPreparo(receitaExistente.tempoPreparo);
+                    setClassificacao(receitaExistente.classificacao);
+                }
+            };
+            carregarReceita();
+        }
+    }, [idreceitaexistente]);
+
 
     //função para cadastrar um novo usuario
     const handleSubmit = async () => {
-        const novaReceita = { nome, ingredientes, modoPreparo, tempoPreparo, classificacao, usuarioId:user?.id };
+        const novaReceita = { nome, ingredientes, modoPreparo, tempoPreparo, classificacao, usuarioId: user?.id };
 
         try {
             await create(novaReceita); //Chama o método POST do Hook
@@ -57,6 +78,41 @@ const receita = () => {
             await remove(id); // Chama o método de delete do hook
         } catch (error) {
             console.log("Erro para deletar o usuario" + error);
+        }
+    };
+
+    function handleMinhasReceitas() {
+        router.push("/minhasreceitas");
+    }
+
+    const handleSalvar = async () => {
+        const novaReceita = {
+            nome,
+            ingredientes,
+            modoPreparo,
+            tempoPreparo,
+            classificacao,
+            usuarioId: user?.id,
+        };
+
+        try {
+            if (idreceitaexistente && typeof idreceitaexistente === "string") {
+                await update(idreceitaexistente, novaReceita);
+            } else {
+                await create(novaReceita);
+            }
+
+            // Limpar campos
+            setNome("");
+            setIngredientes("");
+            setModoPreparo("");
+            setTempoPreparo(0);
+            setClassificacao("");
+
+            await getAll(); // Atualizar lista
+            router.push("/consulta"); // Volta para listagem
+        } catch (error) {
+            console.log("Erro ao salvar receita", error);
         }
     };
 
@@ -106,41 +162,17 @@ const receita = () => {
             />
 
             {/* Botão para cadastrar */}
-            <Button title={"Cadastrar"} onPress={handleSubmit} disabled={loading} />
+            {/*<Button title={"Cadastrar"} onPress={handleSubmit} disabled={loading} />*/}
+            <Button
+                title={idreceitaexistente ? "Atualizar" : "Cadastrar"}
+                onPress={handleSalvar}
+                disabled={loading}
+            />
+            <br />
+            <Button title={"Minhas receitas"} onPress={handleMinhasReceitas}></Button>
 
 
-            <Text style={{ marginTop: 20, fontWeight: "bold" }}>
-                Lista de Receitas:
-            </Text>
 
-            {/* Exibe um indicador de carregamento, mensagem de erro ou a lista */}
-            {loading ? (
-                <ActivityIndicator size="large" color="#196e52" />
-            ) : error ? (
-                <Text style={{ color: "red" }}>Erro ao carregar receitas</Text>
-            ) : (
-                <FlatList
-                    data={receitadata} // Garante que seja um array
-                    renderItem={({ item }) => (
-                        <View
-                            style={{
-                                flexDirection: "row",
-                                justifyContent: "space-between",
-                                marginBottom: 10,
-                            }}
-                        >
-                            <Text>
-                                {item.nome} - {item.classificacao}
-                            </Text>
-                            <Button title="Excluir" onPress={() => handleDelete(item.id!)} />
-                        </View>
-                    )}
-                    keyExtractor={(item) =>
-                        item.id?.toString() || Math.random().toString()
-                    }
-                />
-
-            )}
         </View>)
 }
 

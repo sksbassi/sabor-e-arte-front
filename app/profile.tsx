@@ -15,11 +15,13 @@ export default function ProfileScreen() {
   //   router.push("/usuario");
   // }
 
-  function handleReceitas(){
+  function handleReceitas() {
     router.push("/receita");
   }
 
-    
+  function handleTodasReceitas(){
+    router.push("/consulta");
+  }
 
 
   return (
@@ -27,6 +29,8 @@ export default function ProfileScreen() {
       <Text style={styles.text}>Bem-vindos cozinheiros!</Text>
 
       <Button title="Receitas" onPress={handleReceitas} />
+      <br />
+      <Button title="Pesquisar" onPress={handleTodasReceitas}></Button>
       <br />
       <Button title="Sair" onPress={handleLogout} />
     </View>

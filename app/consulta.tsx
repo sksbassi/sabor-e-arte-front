@@ -91,11 +91,13 @@ const consultaReceita = () => {
                                     {item.nome}
                                     -{item.ingredientes}
                                     -{item.modoPreparo}
-                                    -{item.tempoPreparo}
+                                    -{item.tempoPreparo}{"min"}
                                     -{item.classificacao}
                                 </Text>
+                                <View style={{flexDirection:"row",gap:5}}>
                                 <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
                                 <Button title="Excluir" onPress={() => handleDelete(item.id!)} />
+                                </View>
                             </View>
                         )}
                         keyExtractor={(item) =>

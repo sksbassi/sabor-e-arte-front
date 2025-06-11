@@ -3,6 +3,7 @@ import { useCRUD } from "@/src/hooks/useCrud";
 import { useEffect, useMemo } from "react";
 import { ActivityIndicator, Button, FlatList, Text, View } from "react-native";
 import usuario from "./usuario";
+import { router } from "expo-router";
 
 interface Receita {
   id: string;
@@ -64,8 +65,11 @@ export default function MinhasReceitasScreen() {
                 marginBottom: 10,
               }}
             >
-              <Text>{item.nome} - {item.ingredientes} - {item.modoPreparo} - {item.tempoPreparo} - {item.classificacao}</Text>
+              <Text>{item.nome} - {item.ingredientes} - {item.modoPreparo} - {item.tempoPreparo}{"min"} - {item.classificacao}</Text>
+              <View style={{flexDirection:"row", gap:5}}>
+              <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
               <Button title="Excluir" onPress={() => handleDelete(item.id)} />
+              </View>
             </View>
           )}
           keyExtractor={(item) => item.id}

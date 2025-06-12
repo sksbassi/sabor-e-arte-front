@@ -110,7 +110,7 @@ const receita = () => {
             setClassificacao("");
 
             await getAll(); // Atualizar lista
-            router.push("/consulta"); // Volta para listagem
+            router.push("/minhasreceitas"); // Volta para listagem
         } catch (error) {
             console.log("Erro ao salvar receita", error);
         }

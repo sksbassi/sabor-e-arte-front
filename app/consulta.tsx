@@ -34,7 +34,7 @@ const consultaReceita = () => {
         try {
             await remove(id); // Chama o método de delete do hook
         } catch (error) {
-            console.log("Erro para deletar o usuario" + error);
+            console.log("Erro para deletar a receita" + error);
         }
 
         router.push("/profile")
@@ -66,7 +66,7 @@ const consultaReceita = () => {
 
     const receitadata = Array.isArray(data) ? data : data ? [data] : [];
     return (
-        <View>
+        <View style={{flex:1}}>
             <Text style={{ marginTop: 20, fontWeight: "bold" }}>
                 Lista de Receitas:
             </Text>
@@ -85,18 +85,27 @@ const consultaReceita = () => {
                                     flexDirection: "row",
                                     justifyContent: "space-between",
                                     marginBottom: 10,
+                                    padding: 10,
+                                    borderRadius: 8
                                 }}
                             >
-                                <Text>
-                                    {item.nome}
-                                    -{item.ingredientes}
-                                    -{item.modoPreparo}
-                                    -{item.tempoPreparo}{"min"}
-                                    -{item.classificacao}
+                                <Text style={{width:"95%"}}>
+                                    <br />
+                                    <Text style={{fontWeight:"bold", marginBottom:5}}>
+                                     {item.nome}{":"}
+                                     </Text>
+                                    {item.ingredientes}
+                                    <br />
+                                    {"Modo preparo:"}{item.modoPreparo}
+                                    <br />
+                                    {"Tempo de preparo:"}{item.tempoPreparo}{"min"}
+                                    <br />
+                                    {"Classificação:"}{item.classificacao}
+                                    <br />
                                 </Text>
                                 <View style={{flexDirection:"row",gap:5}}>
-                                <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
-                                <Button title="Excluir" onPress={() => handleDelete(item.id!)} />
+                                {/* <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
+                                <Button title="Excluir" onPress={() => handleDelete(item.id!)} /> */}
                                 </View>
                             </View>
                         )}

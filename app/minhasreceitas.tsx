@@ -1,9 +1,8 @@
 import { useAuth } from "@/src/contexts/authContext";
 import { useCRUD } from "@/src/hooks/useCrud";
+import { router } from "expo-router";
 import { useEffect, useMemo } from "react";
 import { ActivityIndicator, Button, FlatList, Text, View } from "react-native";
-import usuario from "./usuario";
-import { router } from "expo-router";
 
 interface Receita {
   id: string;
@@ -45,7 +44,7 @@ export default function MinhasReceitasScreen() {
   };
 
   return (
-    <View style={{ padding: 20 }}>
+    <View style={{ flex: 1, padding: 10 }}>
       <Text style={{ fontSize: 18, marginBottom: 10 }}>Minhas Receitas</Text>
 
       {loading ? (
@@ -63,12 +62,21 @@ export default function MinhasReceitasScreen() {
                 flexDirection: "row",
                 justifyContent: "space-between",
                 marginBottom: 10,
+                padding: 10,
+                borderRadius: 8
               }}
             >
-              <Text>{item.nome} - {item.ingredientes} - {item.modoPreparo} - {item.tempoPreparo}{"min"} - {item.classificacao}</Text>
-              <View style={{flexDirection:"row", gap:5}}>
-              <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
-              <Button title="Excluir" onPress={() => handleDelete(item.id)} />
+              <Text style={{ width: "85%" }}><Text style={{ fontWeight: "bold", marginBottom: 5 }}> <br />{item.nome}{":"} <br />
+              </Text>{"Ingredientes:"}{item.ingredientes}
+                <br />
+                {"Modo preparo:"}{item.modoPreparo}
+                <br />
+                {"Tempo preparo:"}{item.tempoPreparo}{"min"}
+                <br />
+                {"Classificação:"}{item.classificacao}</Text>
+              <View style={{ alignItems: "center", flexDirection: "row", gap: 5, width: 130, height: 130 }}>
+                <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
+                <Button title="Excluir" onPress={() => handleDelete(item.id)} />
               </View>
             </View>
           )}

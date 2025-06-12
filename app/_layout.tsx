@@ -1,5 +1,6 @@
 import { Stack } from "expo-router";
 import { AuthProvider } from "../src/contexts/authContext";
+import { View } from "react-native";
 
 
 export default function RootLayout() {
@@ -13,3 +14,4 @@ export default function RootLayout() {
     </AuthProvider>
   );
 }
+

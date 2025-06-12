@@ -3,22 +3,9 @@ import { useCRUD } from "@/src/hooks/useCrud";
 import { Text } from "@react-navigation/elements";
 import { router } from "expo-router";
 import { useEffect } from "react";
-import { ActivityIndicator, Button, FlatList, View } from "react-native";
+import { ActivityIndicator, FlatList, View } from "react-native";
 import receita from "./receita";
 
-// interface receita {
-//     id: string;
-//     nome: string;
-//     ingredientes: string;
-//     modoPreparo: string;
-//     tempoPreparo: number;
-//     classificacao: string;
-//     dataPublicacao: Date;
-//     usuarioId: string;
-//     usuariopostagem: {
-//         nome: string
-//     }
-// }
 
 const consultaReceita = () => {
     const { data, loading, error, create, getAll, remove, update } =
@@ -40,16 +27,6 @@ const consultaReceita = () => {
         router.push("/profile")
     };
 
-    // const handleUpdate = async (id: string, receita: receita) => {
-    //     try {
-    //         await update(receita){
-    //             where:id,
-    //         }; // Chama o método de delete do hook
-    //     } catch (error) {
-    //         console.log("Erro para deletar o usuario" + error);
-    //     }
-    // };
-
     const handleUpdate = async (id: string, receita: receita) => {
         try {
             const novaReceita: Partial<receita> = {
@@ -66,7 +43,7 @@ const consultaReceita = () => {
 
     const receitadata = Array.isArray(data) ? data : data ? [data] : [];
     return (
-        <View style={{flex:1}}>
+        <View style={{ flex: 1 }}>
             <Text style={{ marginTop: 20, fontWeight: "bold" }}>
                 Lista de Receitas:
             </Text>
@@ -89,11 +66,12 @@ const consultaReceita = () => {
                                     borderRadius: 8
                                 }}
                             >
-                                <Text style={{width:"95%"}}>
+                                <Text style={{ width: "95%" }}>
                                     <br />
-                                    <Text style={{fontWeight:"bold", marginBottom:5}}>
-                                     {item.nome}{":"}
-                                     </Text>
+                                    <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
+                                        {item.nome}{":"}
+                                    </Text><br />
+                                    {"Ingredientes:"}
                                     {item.ingredientes}
                                     <br />
                                     {"Modo preparo:"}{item.modoPreparo}
@@ -103,8 +81,8 @@ const consultaReceita = () => {
                                     {"Classificação:"}{item.classificacao}
                                     <br />
                                 </Text>
-                                <View style={{flexDirection:"row",gap:5}}>
-                                {/* <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
+                                <View style={{ flexDirection: "row", gap: 5 }}>
+                                    {/* <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
                                 <Button title="Excluir" onPress={() => handleDelete(item.id!)} /> */}
                                 </View>
                             </View>

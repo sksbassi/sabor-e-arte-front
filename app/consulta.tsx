@@ -44,7 +44,7 @@ const consultaReceita = () => {
     const receitadata = Array.isArray(data) ? data : data ? [data] : [];
     return (
         <View style={{ flex: 1 }}>
-            <Text style={{ marginTop: 20, fontWeight: "bold" }}>
+            <Text style={{ marginTop: 20,fontWeight:"bold"}}>
                 Lista de Receitas:
             </Text>
 

@@ -50,7 +50,7 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Login</Text>
+      <Text style={styles.title}>SABOR E ARTE</Text>
       <TextInput
         placeholder="Email"
         value={email}
@@ -70,14 +70,33 @@ export default function Login() {
       <Button title="Entrar" onPress={handleLogin} />
       <br />
       <Button title="Cadastrar" onPress={() => router.push("/usuario")} />
+      <View style={styles.footer}>
+        <Text style={styles.footerText}>Inspiração para sua cozinha</Text>
+      </View>
     </View>
+
   );
 }
 
 const styles = StyleSheet.create({
   container: { flex: 1, justifyContent: "center", padding: 20 },
-  title: { fontSize: 24, marginBottom: 20, textAlign: "center" },
+  title: { fontFamily: "sans-serif", fontSize: 24, color: "blue", marginBottom: 20, textAlign: "center" },
   input: { borderWidth: 1, borderColor: "#ccc", padding: 10, marginBottom: 10 },
   error: { color: "red", marginBottom: 10 },
+  footer: {
+    position: "absolute",
+    bottom: 20, // Posiciona o rodapé 20 pixels acima da borda inferior
+    left: 0, // Faz o View ocupar toda a largura
+    right: 0,
+    alignItems: "center", // Centraliza o conteúdo horizontalmente
+  },
+  footerText: {
+    fontFamily: "sans-serif",
+    fontStyle: "italic",
+    fontSize: 15,
+    fontWeight: "bold",
+    color: "blue",
+    textAlign: "center", // Centraliza o texto
+  },
 });
 

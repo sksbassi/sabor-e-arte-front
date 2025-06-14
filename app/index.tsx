@@ -68,7 +68,7 @@ export default function Login() {
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <Button title="Entrar" onPress={handleLogin} />
-      <br />
+      {'\n'}
       <Button title="Cadastrar" onPress={() => router.push("/usuario")} />
       <View style={styles.footer}>
         <Text style={styles.footerText}>Inspiração para sua cozinha</Text>

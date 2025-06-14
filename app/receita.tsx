@@ -168,7 +168,7 @@ const receita = () => {
                 onPress={handleSalvar}
                 disabled={loading}
             />
-            <br />
+            {'\n'}
             <Button title={"Minhas receitas"} onPress={handleMinhasReceitas}></Button>
 
 

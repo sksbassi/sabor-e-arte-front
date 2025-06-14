@@ -66,16 +66,16 @@ export default function MinhasReceitasScreen() {
                 borderRadius: 8
               }}
             >
-              <Text style={{ width: "85%" }}><Text style={{fontWeight:"bold",marginBottom:5}}><br/>{item.nome}{":"}<br/>
+              <Text style={{ width: "85%" }}><Text style={{ fontWeight: "bold", marginBottom: 5 }}>{'\n'}{item.nome}{":"}{'\n'}
               </Text>{"Ingredientes:"}{item.ingredientes}
-                <br />
+                {'\n'}
                 {"Modo preparo:"}{item.modoPreparo}
-                <br />
+                {'\n'}
                 {"Tempo preparo:"}{item.tempoPreparo}{"min"}
-                <br />
+                {'\n'}
                 {"Classificação:"}{item.classificacao}</Text>
               <View style={{ alignItems: "center", flexDirection: "row", gap: 5, width: 130, height: 130 }}>
-                <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id}})}></Button>
+                <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>
                 <Button title="Excluir" onPress={() => handleDelete(item.id)} />
               </View>
             </View>

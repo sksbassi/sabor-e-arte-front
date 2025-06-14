@@ -44,7 +44,7 @@ const consultaReceita = () => {
     const receitadata = Array.isArray(data) ? data : data ? [data] : [];
     return (
         <View style={{ flex: 1 }}>
-            <Text style={{ marginTop: 20,fontWeight:"bold"}}>
+            <Text style={{ marginTop: 20, fontWeight: "bold" }}>
                 Lista de Receitas:
             </Text>
 
@@ -67,19 +67,19 @@ const consultaReceita = () => {
                                 }}
                             >
                                 <Text style={{ width: "95%" }}>
-                                    <br />
+                                    {'\n'}
                                     <Text style={{ fontWeight: "bold", marginBottom: 5 }}>
                                         {item.nome}{":"}
-                                    </Text><br />
+                                    </Text>{'\n'}
                                     {"Ingredientes:"}
                                     {item.ingredientes}
-                                    <br />
+                                    {'\n'}
                                     {"Modo preparo:"}{item.modoPreparo}
-                                    <br />
+                                    {'\n'}
                                     {"Tempo de preparo:"}{item.tempoPreparo}{"min"}
-                                    <br />
+                                    {'\n'}
                                     {"Classificação:"}{item.classificacao}
-                                    <br />
+                                    {'\n'}
                                 </Text>
                                 <View style={{ flexDirection: "row", gap: 5 }}>
                                     {/* <Button title="Editar" onPress={() => router.push({ pathname: "/receita", params: { idreceitaexistente: item.id } })}></Button>

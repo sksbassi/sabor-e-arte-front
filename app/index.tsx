@@ -41,6 +41,8 @@ export default function Login() {
     console.log(senha);
 
     if (usuario && usuario.senha === senha) {
+      console.log("Entrou nessa desgraça");
+
       login(usuario.id);
       router.push("/profile");
     } else {

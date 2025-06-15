@@ -29,9 +29,9 @@ export default function ProfileScreen() {
       <Text style={styles.text}>Bem-vindos cozinheiros!</Text>
 
       <Button title="Receitas" onPress={handleReceitas} />
-      {'\n'}
+      <Text>{'\n'}</Text>
       <Button title="Pesquisar" onPress={handleTodasReceitas}></Button>
-      {'\n'}
+      <Text>{'\n'}</Text>
       <Button title="Sair" onPress={handleLogout} />
     </View>
   );

@@ -1,5 +1,4 @@
 // // Exemplo básico do useCRUD.ts
-import receita from "@/app/receita";
 import { useState } from "react";
 
 export function useCRUD<T>(endpoint: string) {
@@ -93,5 +92,5 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
-  return { data, loading, error, getAll, create, remove, getByEmail, update};
+  return { data, loading, error, getAll, create, remove, getByEmail, update };
 }

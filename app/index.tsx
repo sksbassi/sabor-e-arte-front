@@ -60,6 +60,7 @@ export default function Login() {
         style={styles.input}
         autoCapitalize="none"
         keyboardType="email-address"
+        autoCorrect={false}
       />
       <TextInput
         placeholder="Senha"
@@ -70,7 +71,7 @@ export default function Login() {
       />
       {error ? <Text style={styles.error}>{error}</Text> : null}
       <Button title="Entrar" onPress={handleLogin} />
-      {'\n'}
+      <Text>{'\n'}</Text>
       <Button title="Cadastrar" onPress={() => router.push("/usuario")} />
       <View style={styles.footer}>
         <Text style={styles.footerText}>Inspiração para sua cozinha</Text>

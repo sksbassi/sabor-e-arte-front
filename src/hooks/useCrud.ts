@@ -6,7 +6,7 @@ export function useCRUD<T>(endpoint: string) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
-  const API_URL = `http://localhost:3000`;
+  const API_URL = `http://192.168.1.103:3000`;
 
   const getAll = async () => {
     setLoading(true);
@@ -22,7 +22,31 @@ export function useCRUD<T>(endpoint: string) {
     }
   };
 
-  const getByEmail = async (email: string): Promise<T | null> => {
+  // const getByEmail = async (email: string): Promise<T | null> => {
+  //   setLoading(true);
+  //   try {
+  //     const response = await fetch(`${API_URL}/${endpoint}/auth`, {
+  //       method: "POST",
+  //       headers: { "Content-Type": "application/json" },
+  //       body: JSON.stringify({
+  //         email,
+  //       }),
+  //     });
+  //     const result = await response.json();
+  //     console.log(result);
+  //     return result;
+  //   } catch (err) {
+  //     setError(err);
+  //     return null;
+  //   } finally {
+  //     setLoading(false);
+  //   }
+  // };
+
+  const getByEmail = async (
+    email: string,
+    senha: string
+  ): Promise<T | null> => {
     setLoading(true);
     try {
       const response = await fetch(`${API_URL}/${endpoint}/auth`, {
@@ -30,10 +54,10 @@ export function useCRUD<T>(endpoint: string) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
+          senha,
         }),
       });
       const result = await response.json();
-      console.log(result);
       return result;
     } catch (err) {
       setError(err);

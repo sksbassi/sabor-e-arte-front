@@ -30,19 +30,17 @@ export default function Login() {
 
   const handleLogin = async () => {
     const result = loginSchema.safeParse({ email, senha });
-
+    console.log(email);
     if (!result.success) {
       setError(result.error.errors[0].message);
       return;
     }
 
-    const usuario = await getByEmail(email);
+    const usuario = await getByEmail(email, senha);
     console.log(usuario);
     console.log(senha);
 
     if (usuario && usuario.senha === senha) {
-      console.log("Entrou nessa desgraça");
-
       login(usuario.id);
       router.push("/profile");
     } else {
@@ -60,7 +58,7 @@ export default function Login() {
         style={styles.input}
         autoCapitalize="none"
         keyboardType="email-address"
-        autoCorrect={false}
+      // autoCorrect={false}
       />
       <TextInput
         placeholder="Senha"

@@ -1,4 +1,5 @@
 import { useCRUD } from "@/src/hooks/useCrud";
+import { router } from "expo-router";
 import { useEffect, useState } from "react";
 import {
   Button,
@@ -33,6 +34,7 @@ const usuario = () => {
   const [senha, setSenha] = useState("");
   const [showModal, setShowModal] = useState(false);
   const [mensagemErro, setMensagemErro] = useState("");
+  const [showModalSucess, setShowModalSucess] = useState(false);
 
   // Validação de email
   const isEmailValid = (email: string) => {
@@ -89,6 +91,7 @@ const usuario = () => {
       setTelefone("");
       setSenha("");
       await getAll(); //Chama a função que faz uma requisição GET para a api
+      setShowModalSucess(true);
     } catch (error) {
       console.log("Erro no cadastro o usuario" + error);
     }
@@ -183,6 +186,32 @@ const usuario = () => {
             </Text>
             <Text style={{ marginBottom: 20 }}>{mensagemErro}</Text>
             <Button title="Fechar" onPress={() => setShowModal(false)} />
+          </View>
+        </View>
+      </Modal>
+      <Modal
+        visible={showModalSucess}
+        transparent={true}
+        animationType="slide"
+        onRequestClose={() => setShowModalSucess(false)}
+      >
+        <View style={{
+          flex: 1,
+          backgroundColor: "rgba(0, 0, 0, 0.5)",
+          justifyContent: "center",
+          alignItems: "center"
+        }}>
+          <View style={{
+            backgroundColor: "white",
+            padding: 20,
+            borderRadius: 20,
+            width: "80%",
+            alignItems: "center"
+          }}>
+            <Text style={{ fontSize: 16, color: "green", margin: 10 }}>
+              Usuário cadastrado com sucesso!!!
+            </Text>
+            <Button title="OK" onPress={() => router.push('/')} />
           </View>
         </View>
       </Modal>

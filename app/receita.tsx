@@ -2,7 +2,7 @@ import { useAuth } from "@/src/contexts/authContext";
 import { useCRUD } from "@/src/hooks/useCrud";
 import { router, useLocalSearchParams } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, Text, TextInput, View } from "react-native";
+import { Button, Modal, Text, TextInput, View } from "react-native";
 
 
 interface receita {
@@ -32,6 +32,8 @@ const receita = () => {
     const [modoPreparo, setModoPreparo] = useState("");
     const [tempoPreparo, setTempoPreparo] = useState(0);
     const [classificacao, setClassificacao] = useState("");
+    const [showModalSucess, setShowModalSucess] = useState(false);
+
 
     //useEffect para buscar todos os clientes assim que o componente for montado
     // useEffect(() => {
@@ -67,6 +69,7 @@ const receita = () => {
             setModoPreparo("");
             setTempoPreparo(0);
             setClassificacao("");
+            //setShowModalSucess(true);
             await getAll(); //Chama a função que faz uma requisição GET para a api
         } catch (error) {
             console.log("Erro no cadastro de usuario" + error);
@@ -80,6 +83,11 @@ const receita = () => {
             console.log("Erro para deletar o usuario" + error);
         }
     };
+
+    function encerraModal() {
+        router.push('/minhasreceitas')
+        return setShowModalSucess(false);
+    }
 
     function handleMinhasReceitas() {
         router.push("/minhasreceitas");
@@ -98,8 +106,10 @@ const receita = () => {
         try {
             if (idreceitaexistente && typeof idreceitaexistente === "string") {
                 await update(idreceitaexistente, novaReceita);
+                setShowModalSucess(true);
             } else {
                 await create(novaReceita);
+                setShowModalSucess(true);
             }
 
             // Limpar campos
@@ -110,7 +120,8 @@ const receita = () => {
             setClassificacao("");
 
             await getAll(); // Atualizar lista
-            router.push("/minhasreceitas"); // Volta para listagem
+
+            //router.push("/minhasreceitas"); // Volta para listagem
         } catch (error) {
             console.log("Erro ao salvar receita", error);
         }
@@ -171,6 +182,31 @@ const receita = () => {
             <Text>{'\n'}</Text>
             <Button title={"Minhas receitas"} onPress={handleMinhasReceitas}></Button>
 
+            <Modal
+                visible={showModalSucess}
+                transparent={true}
+                animationType="slide"
+                onRequestClose={() => setShowModalSucess(false)}
+            >
+                <View style={{
+                    flex: 1,
+                    backgroundColor: "rgba(0, 0, 0, 0.5)",
+                    justifyContent: "center",
+                    alignItems: "center"
+                }}>
+                    <View style={{
+                        backgroundColor: "white",
+                        padding: 20,
+                        borderRadius: 10,
+                        width: "80%",
+                        alignItems: "center"
+                    }}>
+                        <Text style={{ color: "green" }}>Receita salva com sucesso!!!</Text>
+                        <Button title="OK" onPress={() => encerraModal()}></Button>
+
+                    </View>
+                </View>
+            </Modal>
 
 
         </View>)

@@ -1,7 +1,7 @@
 import { useCRUD } from "@/src/hooks/useCrud";
 import { useRouter } from "expo-router";
 import { useEffect, useState } from "react";
-import { Button, StyleSheet, Text, TextInput, View } from "react-native";
+import { Button, Image, StyleSheet, Text, TextInput, View } from "react-native";
 import { z } from "zod";
 import { useAuth } from "../src/contexts/authContext";
 import usuario from "./usuario";
@@ -50,6 +50,13 @@ export default function Login() {
 
   return (
     <View style={styles.container}>
+      <View style={styles.logoContainer}>
+        <Image
+          source={require('../assets/images/logo_saborearte.png')}
+          style={styles.logoimage}
+          resizeMode="contain"
+        />
+      </View>
       <Text style={styles.title}>SABOR E ARTE</Text>
       <TextInput
         placeholder="Email"
@@ -99,5 +106,13 @@ const styles = StyleSheet.create({
     color: "blue",
     textAlign: "center", // Centraliza o texto
   },
+  logoimage: {
+    width: 150,
+    height: 150,
+    marginBottom: 20,
+  },
+  logoContainer: {
+    alignItems: "center"
+  }
 });
 

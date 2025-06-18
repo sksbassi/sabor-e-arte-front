@@ -19,7 +19,7 @@ export default function ProfileScreen() {
     router.push("/receita");
   }
 
-  function handleTodasReceitas(){
+  function handleTodasReceitas() {
     router.push("/consulta");
   }
 

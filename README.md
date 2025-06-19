@@ -1,50 +1,85 @@
-# Welcome to your Expo app 👋
+# SABOR & ARTE 🍲📱
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Aplicativo mobile feito com **React Native** + **Expo Router** para inspirar cozinheiros e entusiastas da culinária a registrar, consultar e compartilhar receitas de forma prática e organizada.
 
-## Get started
+---
 
-1. Install dependencies
+## 📱 Funcionalidades
 
-   ```bash
-   npm install
-   ```
+- ✅ **Cadastro e login de usuários**
+  - Validação de email
+  - Máscara e validação de telefone
+- ✅ **Autenticação com controle de sessão via Context API**
+- ✅ **CRUD completo de receitas**:
+  - Nome
+  - Ingredientes
+  - Modo de preparo
+  - Tempo de preparo
+  - Classificação
+  - Associação com o usuário autor
+- ✅ **Visualização de receitas**
+  - Todas as receitas
+  - Minhas receitas (filtradas)
+- ✅ **Edição e exclusão de receitas**
+- ✅ **Feedback visual com modais de sucesso e erro**
+- ✅ Navegação fluida com [Expo Router](https://expo.github.io/router/)
 
-2. Start the app
+---
 
-   ```bash
-   npx expo start
-   ```
+## 🧑‍🍳 Telas implementadas
 
-In the output, you'll find options to open the app in a
+| Tela            | Descrição |
+|-----------------|-----------|
+| `Login`         | Acesso com email e senha |
+| `Cadastro`      | Criação de conta com validações |
+| `Profile`       | Tela inicial com navegação |
+| `Receita`       | Cadastro e edição de receitas |
+| `MinhasReceitas`| Lista apenas do usuário logado |
+| `Consulta`      | Lista de todas as receitas |
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+---
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## 🧠 Arquitetura
 
-## Get a fresh project
+- **Componentização** e **organização por features**
+- `contexts/authContext.tsx` para autenticação global
+- `hooks/useCRUD.ts` para chamadas genéricas à API
+- Tipagem forte com **TypeScript**
+- Validações com **Zod**
+- Navegação com **Expo Router**
 
-When you're ready, run:
+---
+
+## 🌐 API REST
+
+- Base URL: `http://10.118.1.252:3000`
+- Endpoints:
+  - `POST /usuario` – criar usuário
+  - `POST /usuario/auth` – autenticar login
+  - `GET/POST/PATCH/DELETE /receita` – CRUD de receitas
+
+---
+
+## 🛠️ Tecnologias Utilizadas
+
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [Expo Router](https://expo.github.io/router/)
+- [TypeScript](https://www.typescriptlang.org/)
+- [Zod](https://zod.dev/)
+- [Context API](https://reactjs.org/docs/context.html)
+
+---
+
+## 🚀 Como executar
 
 ```bash
-npm run reset-project
-```
+# Instale as dependências
+npm install
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+# Inicie o projeto com Expo
+npx expo start
 
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+👤 Desenvolvedores 
+[@sksbassi](https://github.com/sksbassi)
+[@joaovcpires](https://github.com/joaovcpires)

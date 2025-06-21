@@ -1,7 +1,7 @@
 import { useAuth } from "@/src/contexts/authContext";
 import { useCRUD } from "@/src/hooks/useCrud";
-import { router } from "expo-router";
-import { useEffect, useMemo, useState } from "react";
+import { router, useFocusEffect } from "expo-router";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import { ActivityIndicator, Button, FlatList, Modal, Text, View } from "react-native";
 
 interface Receita {
@@ -24,9 +24,15 @@ export default function MinhasReceitasScreen() {
 
   const [showModalDelete, setShowModalDelete] = useState(false);
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   getAll();
+  // }, []);
+
+  useFocusEffect(
+  useCallback(() => {
     getAll();
-  }, []);
+  }, [])
+);
 
   // Filtra só as receitas do usuário logado
   const minhasReceitas = useMemo(() => {

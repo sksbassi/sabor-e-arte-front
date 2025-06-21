@@ -6,7 +6,7 @@ export function useCRUD<T>(endpoint: string) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
-  const API_URL = `http://10.118.1.252:3000`;
+  const API_URL = `http://192.168.1.100:3000`;
 
   const getAll = async () => {
     setLoading(true);

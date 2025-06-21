@@ -85,12 +85,12 @@ const receita = () => {
     };
 
     function encerraModal() {
-        router.push('/minhasreceitas')
-        return setShowModalSucess(false);
+        setShowModalSucess(false);
+        //router.replace('/minhasreceitas');
     }
 
     function handleMinhasReceitas() {
-        router.push("/minhasreceitas");
+        router.replace("/minhasreceitas");
     }
 
     const handleSalvar = async () => {
@@ -121,10 +121,10 @@ const receita = () => {
 
             await getAll(); // Atualizar lista
 
-            //router.push("/minhasreceitas"); // Volta para listagem
         } catch (error) {
             console.log("Erro ao salvar receita", error);
         }
+
     };
 
     //Fazer com que o valor 'data'(ou seja, ou dados) sejam sempre um Array

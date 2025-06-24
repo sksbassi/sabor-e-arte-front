@@ -9,7 +9,7 @@ import usuario from "./usuario";
 //import usuario from "../app/usuario";
 
 
-const loginSchema = z.object({
+const loginSchema = z.object({//Utilização do zod para validações de email
   email: z.string().email("Email inválido"),
   senha: z.string(),
 });

@@ -34,12 +34,6 @@ const receita = () => {
     const [classificacao, setClassificacao] = useState("");
     const [showModalSucess, setShowModalSucess] = useState(false);
 
-
-    //useEffect para buscar todos os clientes assim que o componente for montado
-    // useEffect(() => {
-    //     getAll();
-    // }, []);//antes tinha data
-
     useEffect(() => {
         if (idreceitaexistente && typeof idreceitaexistente === "string") {
             const carregarReceita = async () => {

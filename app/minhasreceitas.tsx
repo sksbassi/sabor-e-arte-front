@@ -20,22 +20,18 @@ interface Receita {
 
 export default function MinhasReceitasScreen() {
   const { data, loading, error, getAll, remove } = useCRUD<Receita>("receita");
-  const { user } = useAuth();
+  const { user } = useAuth();//Verifica a autenticação do usuário
 
   const [showModalDelete, setShowModalDelete] = useState(false);
 
-  // useEffect(() => {
-  //   getAll();
-  // }, []);
-
   useFocusEffect(
-  useCallback(() => {
+  useCallback(() => { //Atualiza a tela que está focada
     getAll();
   }, [])
 );
 
   // Filtra só as receitas do usuário logado
-  const minhasReceitas = useMemo(() => {
+  const minhasReceitas = useMemo(() => {//Memoriza o valor retornado da função
     const todasReceitas = Array.isArray(data) ? data : data ? [data] : [];
     return todasReceitas.filter((r) => String(r.usuarioId) === String(user?.id));
   }, [data, user?.id]);
